@@ -109,6 +109,12 @@ function generalUI.draw(InventoryMaid)
             generalUI.previewText = "Disassembled!"
             generalUI.sell.disassemble(InventoryMaid)
         end
+        ImGui.Separator()
+        removeAttachmentsButtonStatus = InventoryMaid.CPS.CPButton("Remove attachments on selected", 225, 30)
+        if removeAttachmentsButtonStatus then
+            generalUI.previewText = "Attachments removed!"
+            generalUI.sell.removeAttachments(InventoryMaid)
+        end
         ImGui.SameLine()
         if (InventoryMaid.CPS.CPButton("Reset", 75, 30)) then
             InventoryMaid.resetSettings()

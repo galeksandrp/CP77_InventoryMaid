@@ -18,11 +18,11 @@ function sell.sell(InventoryMaid)
 end 
 
 function sell.disassemble(InventoryMaid)
+    local craftingSystem = Game.GetScriptableSystemsContainer():Get(CName.new('CraftingSystem'))
     baseSort = require ("sort/baseSort.lua")
     baseSort.generateSellList(InventoryMaid)
 
     for _, v in ipairs(baseSort.finalSellList) do
-        local craftingSystem = Game.GetScriptableSystemsContainer():Get(CName.new('CraftingSystem'))
         craftingSystem:DisassembleItem(Game.GetPlayer(), v:GetID(), 1)
     end  
 
@@ -31,6 +31,16 @@ function sell.disassemble(InventoryMaid)
 
     grenades = require("sort/grenades")
     grenades.disassembleGrenades(InventoryMaid)
+end
+
+function sell.removeAttachments(InventoryMaid)
+    attachments = require ("utility/attachments.lua")
+    baseSort = require ("sort/baseSort.lua")
+    baseSort.generateSellList(InventoryMaid)
+
+    for _, v in ipairs(baseSort.finalSellList) do
+        attachments.removeAll(v:GetID())
+    end
 end
 
 function sell.calculateMoney()
